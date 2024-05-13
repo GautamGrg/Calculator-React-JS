@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-app-region: none;
+}
+
+body {
+  background-color: plum;
+  display: grid;
+  justify-content: center;
+  font-family: "Roboto", sans-serif;
+  align-items: center;
+  height: 100vh;
+  font-size: 2rem;
+}
+
+.container{
+  height: 80vh;
+  width: 50vh;
+  background-color: black;
+  border-radius: 1rem;
+  padding: 1rem;
+
+}
+
+.wrapper{
+  display: grid;
+  height: 100%;
+  width: 100%;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: 10px;
+}
+
+.screen{
+  background-color:dimgray;
+  grid-column: 1 / -1;
+  color: white;
+  text-align: right;
+  padding: 0.5rem;
+  font-size: 4rem;
+  overflow: hidden;
+}
+
+.btn{
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  background-color: darkgrey;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background-color: gray;
+}
+
+.light-gray{
+  background-color: gray;
+  color: black;
+}
+
+.light-gray:hover{
+  background-color: white;
+}
+
+.orange {
+  background-color: orange;
+}
+
+.orange:hover{
+  background-color: white;
+  color: orange;
+}
+
+.zero{
+  grid-column: 1 / span 2;
+  border-radius: 25px;
+  justify-content: left;
+  align-items: center;
+  padding-left: 2rem;
+}
