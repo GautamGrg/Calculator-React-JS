@@ -1,5 +1,6 @@
 import './App.css';
 import {useState, useEffect} from 'react'
+import { NumericFormat } from 'react-number-format';
 
 <style>
 
@@ -13,8 +14,16 @@ function App() {
   const [total, setTotal] = useState(false)
 
   const inputNum = e => {
-    if (curState.includes(".") && e.target.innerText === ".") return;
+    // This line checks if current state includes a decimal point
+    // And if input is also a decimal point
+    // If both conditions are true, it returns early perventing multiple decimals
+    if (curState.includes(".") && e.target.innerText === ".") {
+      return; 
+    }
     
+    // If total state variable is true, meaning a calculation is completed
+    // It sets previous state to an empty string
+    // So it clears the previous calculation result from the display
     if (total){
       setPreState("");
     }
@@ -35,11 +44,46 @@ function App() {
   }, []);
 
   const operatorType = e => {
+    setTotal(false)
+    setOperator(e.target.innerText)
+    if (curState === ""){
+      return;
+    }
 
+    if (preState !== ""){
+      equals()
+    }
+
+    else{
+      setPreState(curState)
+      setCurState("")
+    }
   };
 
   const equals = e => {
-
+    if (e?.target.innerText === "="){
+      setTotal(true)
+    }
+    let cal;
+    switch (operator){
+      case "/":
+        cal = String(parseFloat(preState) / parseFloat(curState));
+        break;
+      case "+":
+        cal = String(parseFloat(preState) + parseFloat(curState));
+        break;
+      case "*":
+        cal = String(parseFloat(preState) * parseFloat(curState));
+        break;
+      case "-":
+        cal = String(parseFloat(preState) - parseFloat(curState));
+        break;
+      default:
+        return;
+    }
+    setInput("");
+    setPreState(cal);
+    setCurState("");
   };
 
   const plusMinus = () => {
@@ -47,6 +91,9 @@ function App() {
   };
 
   const reset  = () => {
+    setPreState("")
+    setCurState("")
+    // setInput("0")
 
   };
 
@@ -55,7 +102,21 @@ function App() {
   };
   return <div className = "container">
     <div className="wrapper">
-      <div className="screen">{input}</div>
+    <div className='screen'>
+          {input !== "" || input === "0" ? (
+            <NumericFormat
+              value={input}
+              displayType={"text"}
+              thousandSeparator={true}>
+            </NumericFormat>
+          ) : (
+            <NumericFormat
+              value={preState}
+              displayType={"text"}
+              thousandSeparator={true}
+            />
+          )}
+          </div>
       <div className="btn light-gray" onClick={reset}>AC</div>
       <div className="btn light-gray" onClick={percent}>%</div>
       <div className="btn light-gray" onClick={plusMinus}>+/-</div>
